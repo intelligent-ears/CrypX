@@ -1,5 +1,3 @@
-# ciphers/mini_aes.py
-
 from core.interfaces import Cipher
 
 SBOX = [0x6, 0x4, 0xC, 0x5,
@@ -15,10 +13,10 @@ class MiniAES(Cipher):
         self._inv_sbox = INV_SBOX
 
     def block_size(self) -> int:
-        return 16  # 16-bit blocks
+        return 16 
 
     def key_size(self) -> int:
-        return 16  # Assume same size for simplicity
+        return 16  
 
     def get_sbox(self) -> list:
         return self._sbox
@@ -27,19 +25,15 @@ class MiniAES(Cipher):
         pt = int.from_bytes(plaintext, byteorder='big')
         k = int.from_bytes(key, byteorder='big')
 
-        # Key whitening
         state = pt ^ k
 
-        # Substitution
         state = self._sub_nibbles(state)
 
-        # Simple permutation: swap nibbles
         state = ((state & 0xF000) >> 12) | \
                 ((state & 0x0F00) >> 4)  | \
                 ((state & 0x00F0) << 4)  | \
                 ((state & 0x000F) << 12)
 
-        # Key whitening (again)
         state ^= k
 
         return state.to_bytes(2, byteorder='big')
@@ -48,19 +42,15 @@ class MiniAES(Cipher):
         ct = int.from_bytes(ciphertext, byteorder='big')
         k = int.from_bytes(key, byteorder='big')
 
-        # Reverse whitening
         state = ct ^ k
 
-        # Reverse permutation
         state = ((state & 0xF000) >> 12) | \
                 ((state & 0x0F00) >> 4)  | \
                 ((state & 0x00F0) << 4)  | \
                 ((state & 0x000F) << 12)
 
-        # Inverse substitution
         state = self._sub_nibbles(state, inverse=True)
 
-        # Final whitening
         state ^= k
 
         return state.to_bytes(2, byteorder='big')
