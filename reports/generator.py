@@ -1,5 +1,3 @@
-# reports/generator.py
-
 import os
 from datetime import datetime
 from fpdf import FPDF
@@ -44,7 +42,6 @@ class ReportGenerator:
         pdf.ln(5)
         pdf.multi_cell(0, 10, txt="Summary:\n" + attack_result.summary())
 
-        # Optional: save visual temporarily and embed
         if hasattr(attack_result, "visualize"):
             with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_img:
                 attack_result.visualize()
