@@ -42,7 +42,7 @@ CrypX/
 │
 ├── reports/
 │   ├── generator.py
-|   ├── visualozer.py       
+|   └── visualozer.py       
 │
 ├── main.py
 ├── cli.py      
