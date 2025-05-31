@@ -45,7 +45,7 @@ if run_btn and uploaded_file:
         cipher = load_cipher_class(tmp_path)
         st.success("✅ Cipher class loaded successfully!")
 
-        # Instantiate attack (no arguments)
+        # Instantiate attack
         if attack_name == "Differential":
             attack = DifferentialAttack()
         elif attack_name == "Linear":
@@ -65,9 +65,12 @@ if run_btn and uploaded_file:
         # Show visualization
         if visualize:
             st.markdown("### 📊 Visualization")
-            fig = result.visualize(return_fig=True)  # your attack class should support this
-            if fig:
-                st.pyplot(fig)
+            try:
+                fig = result.visualize(return_fig=True)
+                if fig:
+                    st.pyplot(fig)
+            except Exception as viz_err:
+                st.warning(f"⚠️ Visualization error: {viz_err}")
 
         # Export section
         with st.expander("📄 Export Options"):

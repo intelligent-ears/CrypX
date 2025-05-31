@@ -1,4 +1,5 @@
 from sympy import symbols, Eq
+import matplotlib.pyplot as plt
 from core.interfaces import Attack, AttackResult
 
 
@@ -18,10 +19,18 @@ class AlgebraicAttackResult(AttackResult):
             "solution": self.solution
         }
 
-    def visualize(self):
-        print("Algebraic Equations:")
-        for eq in self.equations:
-            print(f"  {eq}")
+    def visualize(self, return_fig=False):
+        fig, ax = plt.subplots()
+
+        eq_text = "\n".join([str(eq) for eq in self.equations])
+        ax.axis("off")
+        ax.set_title("Algebraic Equations")
+        ax.text(0, 0.5, eq_text, fontsize=12, va="center", ha="left", wrap=True)
+
+        if return_fig:
+            return fig
+        else:
+            plt.show()
 
 
 class AlgebraicAttack(Attack):
@@ -38,10 +47,7 @@ class AlgebraicAttack(Attack):
         eq = Eq((pt + k) % 16, ct)
         equations = [eq]
 
-        # Try all possible values of k (0-15)
-        valid_k = []
-        for guess in range(16):
-            if (pt + guess) % 16 == ct:
-                valid_k.append(guess)
+        # Try all possible values of k (0–15)
+        valid_k = [guess for guess in range(16) if (pt + guess) % 16 == ct]
 
         return AlgebraicAttackResult(equations, valid_k if valid_k else None)

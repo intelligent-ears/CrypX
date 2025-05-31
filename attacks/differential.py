@@ -24,13 +24,19 @@ class DifferentialAttackResult(AttackResult):
             "ddt": self.ddt.tolist()
         }
 
-    def visualize(self):
-        plt.imshow(self.ddt, cmap='Blues')
-        plt.title("Difference Distribution Table (DDT)")
-        plt.xlabel("Output Difference")
-        plt.ylabel("Input Difference")
-        plt.colorbar()
-        plt.show()
+    def visualize(self, return_fig=False):
+        fig, ax = plt.subplots(figsize=(6, 5))
+        cax = ax.imshow(self.ddt, cmap='Blues')
+        ax.set_title("Difference Distribution Table (DDT)")
+        ax.set_xlabel("Output Difference")
+        ax.set_ylabel("Input Difference")
+        fig.colorbar(cax)
+
+        if return_fig:
+            return fig
+        else:
+            plt.show()
+
 
 
 class DifferentialAttack(Attack):
