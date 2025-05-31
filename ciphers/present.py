@@ -1,5 +1,3 @@
-# ciphers/present.py
-
 from core.interfaces import Cipher
 
 SBOX = [
@@ -22,7 +20,7 @@ PBOX = [0, 16, 32, 48, 1, 17, 33, 49,
 
 class PRESENT(Cipher):
     def __init__(self):
-        self.rounds = 5  # Keep small for toy analysis
+        self.rounds = 5 
         self.sbox = SBOX
         self.inv_sbox = INV_SBOX
         self.pbox = PBOX
@@ -41,7 +39,7 @@ class PRESENT(Cipher):
         round_key = int.from_bytes(key, 'big')
 
         for r in range(self.rounds):
-            state ^= (round_key >> 16) & 0xFFFFFFFFFFFFFFFF  # 64-bit round key
+            state ^= (round_key >> 16) & 0xFFFFFFFFFFFFFFFF 
             state = self._substitute(state)
             state = self._permute(state)
             round_key = self._update_key(round_key, r)
@@ -67,14 +65,11 @@ class PRESENT(Cipher):
         return output
 
     def _update_key(self, key: int, round: int) -> int:
-        # Rotate left 61 bits
         key = ((key << 61) | (key >> 19)) & ((1 << 80) - 1)
 
-        # Apply S-box to leftmost nibble
         sbox_in = (key >> 76) & 0xF
         key = (key & ~(0xF << 76)) | (self.sbox[sbox_in] << 76)
 
-        # XOR round counter
         key ^= round << 15
         return key
 
