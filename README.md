@@ -20,26 +20,36 @@ The goal is to support cryptographers, researchers, and students in studying and
 
 ---
 
-## 📂 Folder Structure
+## 🧱 Module Structure
 
+```text
 CrypX/
 │
-├── streamlit_app.py # Main Streamlit web app
-├── requirements.txt # Dependencies for deployment
-│
 ├── core/
-│ └── interfaces.py # Base classes for Attack and AttackResult
-│
+│   ├── interfaces.py       
+│   └── engine.py
+|
 ├── attacks/
-│ ├── differential.py # Differential attack logic and visuals
-│ ├── linear.py # Linear attack logic
-│ └── algebraic.py # Algebraic attack (symbolic equations)
+│   ├── differential.py      
+│   ├── linear.py            
+│   └── algebraic.py        
 │
 ├── utils/
-│ ├── sbox.py # S-Box utilities (DDT, LAT generation)
-│ └── dynamic_loader.py # Loads cipher class from uploaded file
-
-
+│   ├── sbox.py
+|   ├── matrix.py
+|   ├── gf.py          
+│   └── dynamic_loader.py   
+│
+├── reports/
+│   ├── generator.py
+|   ├── visualozer.py       
+│
+├── main.py
+├── cli.py      
+├── streamlit_app.py
+├── requirements.txt    
+└── README.md   
+```
 ---
 
 ## 🧑‍💻 How It Works
