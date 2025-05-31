@@ -1,5 +1,3 @@
-# core/engine.py
-
 from typing import Type
 from core.interfaces import Cipher, Attack, AttackResult
 
