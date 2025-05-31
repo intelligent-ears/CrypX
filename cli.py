@@ -1,4 +1,3 @@
-# cli.py
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
@@ -12,7 +11,6 @@ from attacks.algebraic import AlgebraicAttack
 from reports.generator import ReportGenerator
 from reports.visualizer import plot_ddt, plot_lat
 
-# Supported ciphers and attacks mapping
 CIPHER_MAP = {
     "mini-aes": MiniAES,
     "present": PRESENT,
@@ -47,7 +45,6 @@ def main():
         list_options()
         return
 
-    # Load Cipher and Attack
     cipher_cls = CIPHER_MAP.get(args.cipher.lower())
     attack_cls = ATTACK_MAP.get(args.attack.lower())
 
