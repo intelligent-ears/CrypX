@@ -1,5 +1,3 @@
-# attacks/differential.py
-
 import numpy as np
 from core.interfaces import Attack, AttackResult
 from utils.sbox import compute_ddt
@@ -47,7 +45,7 @@ class DifferentialAttack(Attack):
             raise ValueError("Cipher does not implement get_sbox(). Required for differential attack.")
 
         ddt = compute_ddt(sbox)
-        max_prob = np.max(ddt[1:] / 16)  # Skip zero diff
+        max_prob = np.max(ddt[1:] / 16)  
         in_diff, out_diff = np.unravel_index(np.argmax(ddt), ddt.shape)
 
         return DifferentialAttackResult(ddt, max_prob, in_diff, out_diff)
