@@ -1,5 +1,3 @@
-# main.py
-
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
@@ -25,7 +23,6 @@ Analyze block ciphers using:
 🛠️ Docs: See README.md or use --help in CLI
 """)
 
-    # Optional: forward to CLI
     try:
         import cli
         cli.main()
