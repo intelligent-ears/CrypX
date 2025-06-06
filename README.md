@@ -88,7 +88,7 @@ No installation needed — upload your cipher and analyze directly in the browse
 
 ---
 
-##🤝 Contributing
+## 🤝 Contributing
 
 Pull requests are welcome! Feel free to open issues or suggest new cryptanalysis methods.
 
